@@ -1,13 +1,13 @@
 import { EditIcon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useProductStore } from "../../store/useProductStore.js";
+import { useProductStore } from "../../store/useProductStore";
 
-function ProductCard({ product }) {
+const ProductCard = ({ product }) => {
   const { deleteProduct } = useProductStore();
+
   return (
-    <div className="transition-shadow duration-300 shadow-xl card bg-base-100 hover:shadow-2xl">
-      {/* PRODUCT IMAGE */}
-      <figure className="relative pt-[56.25%]">
+    <div className="text-orange-800 transition-shadow duration-300 border border-orange-200 shadow-lg card bg-orange-50 hover:shadow-xl">
+      <figure className="relative pt-[56.25%] bg-orange-100">
         <img
           src={product.image}
           alt={product.name}
@@ -16,23 +16,23 @@ function ProductCard({ product }) {
       </figure>
 
       <div className="card-body">
-        {/* PRODUCT INFO */}
-        <h2 className="text-lg font-semibold card-title">{product.name}</h2>
-        <p className="text-2xl font-bold text-primary">
-          ${Number(product.price).toFixed(2)}
+        <h2 className="text-lg font-semibold text-orange-700 card-title">
+          {product.name}
+        </h2>
+        <p className="text-2xl font-bold text-orange-600">
+          {Number(product.price)} DH
         </p>
 
-        {/* CARD ACTIONS */}
-        <div className="justify-end mt-4 card-actions">
+        <div className="justify-end mt-4 space-x-2 card-actions">
           <Link
             to={`/product/${product.id}`}
-            className="btn btn-sm btn-info btn-outline"
+            className="text-white bg-orange-500 border-none btn btn-sm hover:bg-orange-600"
           >
             <EditIcon className="size-4" />
           </Link>
 
           <button
-            className="btn btn-sm btn-error btn-outline"
+            className="text-white bg-orange-500 border-none btn btn-sm hover:bg-orange-600"
             onClick={() => deleteProduct(product.id)}
           >
             <Trash2Icon className="size-4" />
@@ -41,5 +41,6 @@ function ProductCard({ product }) {
       </div>
     </div>
   );
-}
+};
+
 export default ProductCard;

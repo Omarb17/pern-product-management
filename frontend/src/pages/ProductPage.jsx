@@ -1,9 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useProductStore } from "../../store/useProductStore.js";
-import { useEffect } from "react";
 import { ArrowLeftIcon, SaveIcon, Trash2Icon } from "lucide-react";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useProductStore } from "../../store/useProductStore";
 
-function ProductPage() {
+const ProductPage = () => {
   const {
     currentProduct,
     formData,
@@ -14,6 +14,7 @@ function ProductPage() {
     updateProduct,
     deleteProduct,
   } = useProductStore();
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -45,126 +46,118 @@ function ProductPage() {
   }
 
   return (
-    <div className="container max-w-4xl px-4 py-8 mx-auto">
-      <button onClick={() => navigate("/")} className="mb-8 btn btn-ghost">
-        <ArrowLeftIcon className="mr-2 size-4" />
-        Back to Products
-      </button>
+    <div className="min-h-screen py-12 bg-gradient-to-b from-orange-100 via-orange-50 to-orange-100">
+      <div className="container max-w-4xl px-4 py-8 mx-auto">
+        <button
+          onClick={() => navigate("/")}
+          className="mb-8 text-orange-600 bg-orange-100 btn hover:bg-orange-200"
+        >
+          <ArrowLeftIcon className="mr-2 size-4" />
+          Back To Products
+        </button>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {/* PRODUCT IMAGE */}
-        <div className="overflow-hidden rounded-lg shadow-lg bg-base-100">
-          <img
-            src={currentProduct?.image}
-            alt={currentProduct?.name}
-            className="object-cover size-full"
-          />
-        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="overflow-hidden bg-orange-100 rounded-lg shadow-lg">
+            <img
+              src={currentProduct?.image}
+              alt={currentProduct?.name}
+              className="object-cover size-full"
+            />
+          </div>
+          <div className="text-orange-800 border border-orange-200 shadow-lg card bg-orange-50">
+            <div className="card-body">
+              <h2 className="mb-6 text-2xl font-bold">Edit Product</h2>
 
-        {/* PRODUCT FORM */}
-        <div className="shadow-lg card bg-base-100">
-          <div className="card-body">
-            <h2 className="mb-6 text-2xl card-title">Edit Product</h2>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                updateProduct(id);
-              }}
-              className="space-y-6"
-            >
-              {/* PRODUCT NAME */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="text-base font-medium label-text">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  updateProduct(id);
+                }}
+                className="space-y-6"
+              >
+                <div className="form-control">
+                  <label className="font-medium text-orange-700 label">
                     Product Name
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter product name"
-                  className="w-full input input-bordered"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                />
-              </div>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Product name"
+                    className="text-orange-800 bg-white border-orange-300 input input-bordered focus:border-orange-500 focus:ring-orange-500"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                  />
+                </div>
 
-              {/* PRODUCT PRICE */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="text-base font-medium label-text">
+                <div className="flex flex-col form-control">
+                  <label className="font-medium text-orange-700 label">
                     Price
-                  </span>
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0.00"
-                  className="w-full input input-bordered"
-                  value={formData.price}
-                  onChange={(e) =>
-                    setFormData({ ...formData, price: e.target.value })
-                  }
-                />
-              </div>
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                    className="text-orange-800 bg-white border-orange-300 input input-bordered focus:border-orange-500 focus:ring-orange-500"
+                    value={formData.price}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
+                  />
+                </div>
 
-              {/* PRODUCT IMAGE URL */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="text-base font-medium label-text">
+                <div className="form-control">
+                  <label className="font-medium text-orange-700 label">
                     Image URL
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="https://example.com/image.jpg"
-                  className="w-full input input-bordered"
-                  value={formData.image}
-                  onChange={(e) =>
-                    setFormData({ ...formData, image: e.target.value })
-                  }
-                />
-              </div>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="https://example.com/image.jpg"
+                    className="text-orange-800 bg-white border-orange-300 input input-bordered focus:border-orange-500 focus:ring-orange-500"
+                    value={formData.image}
+                    onChange={(e) =>
+                      setFormData({ ...formData, image: e.target.value })
+                    }
+                  />
+                </div>
 
-              {/* FORM ACTIONS */}
-              <div className="flex justify-between mt-8">
-                <button
-                  type="button"
-                  onClick={handleDelete}
-                  className="btn btn-error"
-                >
-                  <Trash2Icon className="mr-2 size-4" />
-                  Delete Product
-                </button>
+                <div className="flex justify-between mt-8">
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="text-white bg-orange-500 border-none btn hover:bg-orange-600"
+                  >
+                    <Trash2Icon className="mr-2 size-4" />
+                    Delete Product
+                  </button>
 
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={
-                    loading ||
-                    !formData.name ||
-                    !formData.price ||
-                    !formData.image
-                  }
-                >
-                  {loading ? (
-                    <span className="loading loading-spinner loading-sm" />
-                  ) : (
-                    <>
-                      <SaveIcon className="mr-2 size-4" />
-                      Save Changes
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
+                  <button
+                    type="submit"
+                    disabled={
+                      loading ||
+                      !formData.name ||
+                      !formData.price ||
+                      !formData.image
+                    }
+                    className="btn bg-orange-500 text-white hover:bg-orange-600 border-none min-w-[140px]"
+                  >
+                    {loading ? (
+                      <span className="loading loading-spinner loading-sm" />
+                    ) : (
+                      <>
+                        <SaveIcon className="mr-2 size-4" />
+                        Save Changes
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
 export default ProductPage;

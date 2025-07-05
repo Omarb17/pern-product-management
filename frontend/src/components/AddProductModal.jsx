@@ -1,44 +1,45 @@
+import React from "react";
+import { useProductStore } from "../../store/useProductStore";
 import {
   DollarSignIcon,
   ImageIcon,
   Package2Icon,
   PlusCircleIcon,
 } from "lucide-react";
-import { useProductStore } from "../../store/useProductStore";
 
 function AddProductModal() {
   const { addProduct, formData, setFormData, loading } = useProductStore();
 
   return (
     <dialog id="add_product_modal" className="modal">
-      <div className="modal-box">
-        {/* CLOSE BUTTON */}
-        <form method="dialog">
-          <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
-            X
-          </button>
-        </form>
+      <div className="text-orange-800 border border-orange-300 modal-box bg-orange-50">
+        <button
+          formMethod="dialog"
+          className="absolute text-orange-500 right-2 top-2 btn btn-sm btn-circle hover:bg-orange-200"
+        >
+          X
+        </button>
 
-        {/* MODAL HEADER */}
-        <h3 className="mb-8 text-xl font-bold">Add New Product</h3>
+        <h3 className="mb-8 text-lg font-bold text-orange-700">
+          Add New Product
+        </h3>
 
-        <form onSubmit={addProduct} className="space-y-6">
+        <form onSubmit={addProduct} className="grid gap-6">
           <div className="grid gap-6">
-            {/* PRODUCT NAME INPUT */}
             <div className="form-control">
               <label className="label">
-                <span className="text-base font-medium label-text">
+                <span className="text-base font-medium text-orange-700">
                   Product Name
                 </span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/50">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-orange-400">
                   <Package2Icon className="size-5" />
                 </div>
                 <input
                   type="text"
                   placeholder="Enter product name"
-                  className="w-full py-3 pl-10 transition-colors duration-200 input input-bordered focus:input-primary"
+                  className="w-full py-3 pl-10 text-orange-800 placeholder-orange-400 bg-orange-100 border border-orange-300 rounded-md focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
@@ -47,21 +48,19 @@ function AddProductModal() {
               </div>
             </div>
 
-            {/* PRODUCT PRICE INPUT */}
             <div className="form-control">
               <label className="label">
-                <span className="text-base font-medium label-text">Price</span>
+                <span className="text-base font-medium text-orange-700">
+                  Price
+                </span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/50">
-                  <DollarSignIcon className="size-5" />
-                </div>
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-orange-400"></div>
                 <input
                   type="number"
                   min="0"
-                  step="0.01"
                   placeholder="0.00"
-                  className="w-full py-3 pl-10 transition-colors duration-200 input input-bordered focus:input-primary"
+                  className="w-full py-3 pl-10 text-orange-800 placeholder-orange-400 bg-orange-100 border border-orange-300 rounded-md focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   value={formData.price}
                   onChange={(e) =>
                     setFormData({ ...formData, price: e.target.value })
@@ -70,21 +69,20 @@ function AddProductModal() {
               </div>
             </div>
 
-            {/* PRODUCT IMAGE */}
             <div className="form-control">
               <label className="label">
-                <span className="text-base font-medium label-text">
+                <span className="text-base font-medium text-orange-700">
                   Image URL
                 </span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/50">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-orange-400">
                   <ImageIcon className="size-5" />
                 </div>
                 <input
                   type="text"
                   placeholder="https://example.com/image.jpg"
-                  className="w-full py-3 pl-10 transition-colors duration-200 input input-bordered focus:input-primary"
+                  className="w-full py-3 pl-10 text-orange-800 placeholder-orange-400 bg-orange-100 border border-orange-300 rounded-md focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   value={formData.image}
                   onChange={(e) =>
                     setFormData({ ...formData, image: e.target.value })
@@ -94,14 +92,16 @@ function AddProductModal() {
             </div>
           </div>
 
-          {/* MODAL ACTIONS */}
           <div className="modal-action">
-            <form method="dialog">
-              <button className="btn btn-ghost">Cancel</button>
-            </form>
+            <button
+              formMethod="dialog"
+              className="text-orange-500 btn hover:bg-orange-100"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
-              className="btn btn-primary min-w-[120px]"
+              className="btn bg-orange-500 text-white hover:bg-orange-600 min-w-[120px]"
               disabled={
                 !formData.name || !formData.price || !formData.image || loading
               }
@@ -119,11 +119,11 @@ function AddProductModal() {
         </form>
       </div>
 
-      {/* BACKDROP */}
       <form method="dialog" className="modal-backdrop">
         <button>close</button>
       </form>
     </dialog>
   );
 }
+
 export default AddProductModal;
